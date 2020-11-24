@@ -21,16 +21,24 @@ public class MyReceiver extends BroadcastReceiver {
         }
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
-            String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            Log.d("CatchCall", "EXTRA_STATE_RINGING");
 
-            Log.d("CALL_TEST", "incomingNumber>" + incomingNumber);
+            String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            Log.d("CatchCall", "incomingNumber>" + incomingNumber);
 
             final String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
+            Log.d("CatchCall", "phone_number>" + incomingNumber);
 
-            Log.d("CALL_TEST", "phone_number>" + incomingNumber);
             Intent serviceIntent = new Intent(context, CatchCallService.class);
             serviceIntent.putExtra(CatchCallService.EXTRA_CALL_NUMBER, phone_number);
             context.startService(serviceIntent);
+
+        }else if(TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)){
+            Log.d("CatchCall", "EXTRA_STATE_OFFHOOK");
+
+            Intent serviceIntent = new Intent(context, CatchCallService.class);
+            context.stopService(serviceIntent);
+
         }
     }
 }
