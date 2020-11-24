@@ -21,7 +21,7 @@ public class MyReceiver extends BroadcastReceiver {
         }
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
-            Log.d("CatchCall", "EXTRA_STATE_RINGING");
+            Log.d("CatchCall", "EXTRA_STATE_RINGING 전화울림");
 
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             Log.d("CatchCall", "incomingNumber>" + incomingNumber);
@@ -34,11 +34,16 @@ public class MyReceiver extends BroadcastReceiver {
             context.startService(serviceIntent);
 
         }else if(TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)){
-            Log.d("CatchCall", "EXTRA_STATE_OFFHOOK");
+            Log.d("CatchCall", "EXTRA_STATE_OFFHOOK 전화수신");
 
             Intent serviceIntent = new Intent(context, CatchCallService.class);
             context.stopService(serviceIntent);
 
+        }else if(TelephonyManager.EXTRA_STATE_IDLE.equals(state)){
+            Log.d("CatchCall", "EXTRA_STATE_IDLE 전화거절/통화밸 종료");
+
+            Intent serviceIntent = new Intent(context, CatchCallService.class);
+            context.stopService(serviceIntent);
         }
     }
 }
