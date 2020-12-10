@@ -1,5 +1,6 @@
 package com.devlion.catchcall;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
 
@@ -19,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button bt_stop = (Button)findViewById(R.id.bt);
+        Button bt_layer = (Button)findViewById(R.id.bt_layer);
 
-        bt_stop.setOnClickListener(new View.OnClickListener() {
+        bt_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                stopService(new Intent(MainActivity.this, MyService.class));
@@ -29,6 +33,42 @@ public class MainActivity extends AppCompatActivity {
                 checkPermission();
             }
         });
+
+        Button bt_sqlite_save = (Button)findViewById(R.id.bt_sqlite_save);
+
+        bt_sqlite_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                stopService(new Intent(MainActivity.this, MyService.class));
+//                Toast.makeText(MainActivity.this, "SAVE", Toast.LENGTH_SHORT).show();
+                Log.d("CALL_TEST", "SAVE!");
+                DbManager db = DbManager.getInstance(getApplicationContext());
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("NAME", "홍길동");
+                contentValues.put("PHONE", "1234");
+
+                db.insert(contentValues);
+            }
+        });
+
+        Button bt_sqlite_load = (Button)findViewById(R.id.bt_sqlite_load);
+
+        bt_sqlite_load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CALL_TEST", "LOAD");
+//                stopService(new Intent(MainActivity.this, MyService.class));
+                DbManager db = DbManager.getInstance(getApplicationContext());
+
+                List<Map<String, String>> mapList = db.select();
+
+                for(Map<String, String> map : mapList){
+                    Log.d("CALL_TEST", map.toString());
+                }
+            }
+        });
+
     }
 
     public void checkPermission() {
@@ -46,4 +86,20 @@ public class MainActivity extends AppCompatActivity {
 //            startService(new Intent(MainActivity.this, MyService.class));
         }
     }
+
+
+    public void sqliteTest() {
+
+        Toast.makeText(MainActivity.this, "START", Toast.LENGTH_SHORT).show();
+
+        long maxCnt = 200000;
+        for(int i = 0 ; i < maxCnt ; i++ ){
+            Log.d("CALL_TEST", ".");
+        }
+
+
+        Toast.makeText(MainActivity.this, "FINISH", Toast.LENGTH_SHORT).show();
+
+    }
+
 }

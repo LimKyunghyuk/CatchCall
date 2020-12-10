@@ -11,8 +11,30 @@
     <Button
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:id="@+id/bt"
-        android:text="click"
+        android:id="@+id/bt_layer"
+        android:text="Layer 퍼미션"
+        android:textColor="#ffffff"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_sqlite_save"
+        android:text="SQLite_Save"
+        android:textColor="#ffffff"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_sqlite_load"
+        android:text="SQLite_Load"
         android:textColor="#ffffff"
         android:src="@mipmap/ic_launcher"
         android:layout_below="@+id/textView"
